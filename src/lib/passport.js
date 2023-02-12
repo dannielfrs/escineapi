@@ -49,10 +49,12 @@ passport.use('local.login', new localStrategy({
     }
 }));
 
+// Create a cookie on the browser with the userid inside of it
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
+// Read the cookie on the browser to get the user 
 passport.deserializeUser(async (id, done) => {
     const [row] = await database.query('SELECT * FROM users WHERE id = ?', [id]);
     done(null, row);

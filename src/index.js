@@ -20,30 +20,28 @@ app.set('port', process.env.PORT || 4000);   // If variable PORT is empty use 40
 
 // Middlewares
 
-app.use(cookieParser());
-app.use(
-    session({
-        key: 'session_cookie_name',
-        secret: 'session_cookie_secret',
-        resave: true,
-        saveUninitialized: true,
-        store: new MySQLStore(databaseConection), // Store user session on mysql database
-        cookie: {
-            maxAge: 1000 * 60 * 60,   // User session expires in one hour
-        },
-    })
-);
-app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));   // Permite recibir datos desde formularios, no se aceptan archivos como imagenes, etc.
 app.use(express.json());     // Allow send and receive json
-app.use(passport.initialize());
-app.use(passport.session());   // Create a session for passport
 app.use(
     cors({
         origin: ["https://dannielfrs.github.io", "http://localhost:3000"], // Location of the react app from where connecting to
         credentials: true,
     })
 );
+app.use(session({
+    // key: 'session_cookie_name',
+    secret: 'session_cookie_secret',
+    resave: true,
+    saveUninitialized: true,
+    store: new MySQLStore(databaseConection), // Store user session on mysql database
+    cookie: {
+        maxAge: 1000 * 60 * 60,   // User session expires in one hour
+    },
+}));
+app.use(cookieParser('session_cookie_secret'));
+app.use(passport.initialize());
+app.use(passport.session());   // Create a session for passport
+app.use(morgan('dev'));
 
 // Routes
 
