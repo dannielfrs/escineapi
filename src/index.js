@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session'); // Create user session
-const MySQLStore = require('express-mysql-session'); // Store user session on mysql database
+const MySQLStore = require('express-mysql-session')(session); // Store user session on mysql database
 const passport = require('passport');
 const cookieParser = require("cookie-parser");
 const cors = require('cors')
@@ -23,8 +23,8 @@ app.set('port', process.env.PORT || 4000);   // If variable PORT is empty use 40
 app.use(cookieParser());
 app.use(
     session({
-        key: "userId",
-        secret: 'mysqlnodesession',
+        key: 'session_cookie_name',
+        secret: 'session_cookie_secret',
         resave: false,
         saveUninitialized: false,
         store: new MySQLStore(database), // Store user session on mysql database
