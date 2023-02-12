@@ -38,10 +38,4 @@ router.get('/logout', isLoggedIn, (req, res) => {
     res.json({ message: { content: 'Sesión finalizada', type: "info" }, user: false, isLoggedin: false });
 });
 
-
-router.get('/', (req, res) => {
-    res.send("Bienvenido al servidor");
-})
-
-
 module.exports = router;
