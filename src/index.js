@@ -1,12 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const session = require('express-session'); // Las sesiones almacenan datos en la memoria del servidor o en la base de datos
+const session = require('express-session'); // Create user session
+const MySQLStore = require('express-mysql-session'); // Store user session on mysql database
 const passport = require('passport');
 const cookieParser = require("cookie-parser");
 const cors = require('cors')
-require('dotenv').config();  // read environment variables
+require('dotenv').config();  // Read environment variables
 require('./lib/passport');
+const { database } = require('./keys');
 
 // Initializations
 
@@ -22,9 +24,10 @@ app.use(cookieParser());
 app.use(
     session({
         key: "userId",
-        secret: "subscribe",
+        secret: 'mysqlnodesession',
         resave: false,
         saveUninitialized: false,
+        store: new MySQLStore(database), // Store user session on mysql database
         cookie: {
             maxAge: 1000 * 60 * 60,   // User session expires in one hour
         },
@@ -37,7 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());   // Create a session for passport
 app.use(
     cors({
-        origin: ["https://dannielfrs.github.io", "http://localhost:3000"], // Location of the react app were connecting to
+        origin: ["https://dannielfrs.github.io", "http://localhost:3000"], // Location of the react app from where connecting to
         credentials: true,
     })
 );
