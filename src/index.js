@@ -25,8 +25,8 @@ app.use(
     session({
         key: 'session_cookie_name',
         secret: 'session_cookie_secret',
-        resave: false,
-        saveUninitialized: false,
+        resave: true,
+        saveUninitialized: true,
         store: new MySQLStore(databaseConection), // Store user session on mysql database
         cookie: {
             maxAge: 1000 * 60 * 60,   // User session expires in one hour
