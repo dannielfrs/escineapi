@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const cors = require('cors')
 require('dotenv').config();  // Read environment variables
 require('./lib/passport');
-const { database } = require('./keys');
+const { databaseConection } = require('./config');
 
 // Initializations
 
@@ -27,7 +27,7 @@ app.use(
         secret: 'session_cookie_secret',
         resave: false,
         saveUninitialized: false,
-        store: new MySQLStore(database), // Store user session on mysql database
+        store: new MySQLStore(databaseConection), // Store user session on mysql database
         cookie: {
             maxAge: 1000 * 60 * 60,   // User session expires in one hour
         },

@@ -1,7 +1,7 @@
 module.exports = {
 
     isLoggedIn(req, res, next) {
-        if (req.isAuthenticated()) {
+        if (req.user) {
             return next();
         }
         return res.json({ message: { content: 'No has iniciado sesión', type: "info" }, user: false, isLoggedin: false });
