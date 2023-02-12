@@ -5,6 +5,7 @@ const path = require('path');
 const upload = require('../lib/multer');
 const database = require('../database');
 const { isLoggedIn } = require('../lib/verifyIsLoggedIn');
+const { db } = require('./keys');
 
 // router.get('/', isLoggedIn, async (req, res) => {
 //     const movies = await database.query('SELECT * FROM movies WHERE user_id = ?', [req.user.id])
@@ -69,7 +70,7 @@ router.delete('/delete/:id', isLoggedIn, async (req, res) => {
 
 router.get('/', async (req, res) => {
     // const movies = await database.query('SELECT * FROM movies')
-        res.json({ movies: "test for api/movies"})
+        res.json({ login: db})
 })
 
 
