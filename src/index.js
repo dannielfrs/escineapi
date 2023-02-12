@@ -37,7 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());   // Create a session for passport
 app.use(
     cors({
-        origin: "*", // Location of the react app were connecting to
+        origin: ["https://dannielfrs.github.io", "http://localhost:3000"], // Location of the react app were connecting to
         credentials: true,
     })
 );
