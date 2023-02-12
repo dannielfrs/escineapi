@@ -68,8 +68,8 @@ router.delete('/delete/:id', isLoggedIn, async (req, res) => {
 
 
 router.get('/', async (req, res) => {
-    const movies = await database.query('SELECT * FROM movies')
-        res.json({ movies: movies})
+    // const movies = await database.query('SELECT * FROM movies')
+        res.json({ movies: "test for api/movies"})
 })
 
 
