@@ -12,11 +12,14 @@ router.post('/register', upload.none(), isNotLoggedIn, (req, res, next) => {
 });
 
 router.get("/login", upload.none(), (req, res) => {
-    console.log("Ejecutando ruta get  /login")
+    console.log("Ejecutando ruta get /login")
+    console.log(req.isAuthenticated())
+    console.log(req.user)
+    console.log(req.session)
     if (req.isAuthenticated()) {
         res.json({ message: { content: 'Sesión de usuario activa', type: "info" }, user: req.user, isLoggedin: true });
     } else {
-        console.log('No has iniciado sesión')
+        console.log('No has iniciado sesión, fin get /login')
         res.json({ message: { content: 'No has iniciado sesión', type: "info" }, user: false, isLoggedin: false });
     }
 });

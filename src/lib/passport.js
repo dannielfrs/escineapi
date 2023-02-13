@@ -51,11 +51,13 @@ passport.use('local.login', new localStrategy({
 
 // Create a cookie on the browser with the userid inside of it
 passport.serializeUser((user, done) => {
+    console.log("Creando cookie con serializeUser")
     done(null, user.id);
 });
 
 // Read the cookie on the browser to get the user 
 passport.deserializeUser(async (id, done) => {
+    console.log("Leyendo la cookie para obtener el usuario")
     const [row] = await database.query('SELECT * FROM users WHERE id = ?', [id]);
     done(null, row);
 });
