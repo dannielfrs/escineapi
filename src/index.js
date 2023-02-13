@@ -4,11 +4,10 @@ const path = require('path');
 const session = require('express-session'); // Create user session
 const MySQLStore = require('express-mysql-session')(session); // Store user session on mysql database
 const passport = require('passport');
-const cookieParser = require("cookie-parser");
 const cors = require('cors')
 require('dotenv').config();  // Read environment variables
 require('./lib/passport');
-const { databaseConection } = require('./config');
+const { databaseConnection } = require('./config');
 
 // Initializations
 
@@ -20,7 +19,6 @@ app.set('port', process.env.PORT || 4000);   // If variable PORT is empty use 40
 
 // Middlewares
 
-// app.set('trust proxy', 1)
 app.use(express.urlencoded({ extended: false }));   // Permite recibir datos desde formularios, no se aceptan archivos como imagenes, etc.
 app.use(express.json());     // Allow send and receive json
 app.use(
@@ -30,17 +28,14 @@ app.use(
     })
 );
 app.use(session({
-    // key: 'session_cookie_name',
     secret: 'session_cookie_secret',
     resave: true,
     saveUninitialized: true,
-    store: new MySQLStore(databaseConection), // Store user session on mysql database
+    store: new MySQLStore(databaseConnection), // Store user session on mysql database
     cookie: {
         maxAge: 1000 * 60 * 60,   // User session expires in one hour
-        // secure : process.env.NODE_ENV === "production" ? true : false
     },
 }));
-// app.use(cookieParser('session_cookie_secret'));
 app.use(passport.initialize());
 app.use(passport.session());   // Create a session for passport
 app.use(morgan('dev'));

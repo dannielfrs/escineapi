@@ -23,7 +23,6 @@ passport.use('local.register', new localStrategy({
     newUser.password = await useBcrypt.encryptPassword(password);
     console.log(newUser)
     const result = await database.query('INSERT INTO users SET ?', [newUser]);
-    console.log(result)
     newUser.id = result.insertId;
     return done(null, newUser, { content: 'Usuario registrado exitosamente', type: "success" });
 }));
@@ -33,7 +32,6 @@ passport.use('local.login', new localStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, username, password, done) => {
-    console.log(req.body);
     console.log(req.user);
     const rows = await database.query('SELECT * FROM users WHERE username = ?', [username]);
     if (rows.length > 0) {
@@ -51,13 +49,11 @@ passport.use('local.login', new localStrategy({
 
 // Create a cookie on the browser with the userid inside of it
 passport.serializeUser((user, done) => {
-    console.log("Creando cookie con serializeUser")
     done(null, user.id);
 });
 
 // Read the cookie on the browser to get the user 
 passport.deserializeUser(async (id, done) => {
-    console.log("Leyendo la cookie para obtener el usuario con deserializeUser")
     const [row] = await database.query('SELECT * FROM users WHERE id = ?', [id]);
     done(null, row);
 });

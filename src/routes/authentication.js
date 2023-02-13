@@ -12,14 +12,9 @@ router.post('/register', upload.none(), isNotLoggedIn, (req, res, next) => {
 });
 
 router.get("/login", upload.none(), (req, res) => {
-    console.log("Ejecutando ruta get /login")
-    console.log(req.isAuthenticated())
-    console.log(req.user)
-    console.log(req.session)
     if (req.isAuthenticated()) {
         res.json({ message: { content: 'Sesión de usuario activa', type: "info" }, user: req.user, isLoggedin: true });
     } else {
-        console.log('No has iniciado sesión, fin get /login')
         res.json({ message: { content: 'No has iniciado sesión', type: "info" }, user: false, isLoggedin: false });
     }
 });
@@ -32,9 +27,6 @@ router.post('/login', upload.none(), isNotLoggedIn, (req, res, next) => {
             req.logIn(user, (error) => {
                 if (error) throw error;
                 res.json({ message: message, user: user, isLoggedin: true });
-                console.log("Inicio de sesion exitoso")
-                console.log(req.user)
-                console.log(req.session)
             });
         }
     })(req, res, next);
