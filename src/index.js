@@ -40,7 +40,7 @@ app.use(session({
         // secure : process.env.NODE_ENV === "production" ? true : false
     },
 }));
-app.use(cookieParser('session_cookie_secret'));
+// app.use(cookieParser('session_cookie_secret'));
 app.use(passport.initialize());
 app.use(passport.session());   // Create a session for passport
 app.use(morgan('dev'));

@@ -57,7 +57,7 @@ passport.serializeUser((user, done) => {
 
 // Read the cookie on the browser to get the user 
 passport.deserializeUser(async (id, done) => {
-    console.log("Leyendo la cookie para obtener el usuario")
+    console.log("Leyendo la cookie para obtener el usuario con deserializeUser")
     const [row] = await database.query('SELECT * FROM users WHERE id = ?', [id]);
     done(null, row);
 });

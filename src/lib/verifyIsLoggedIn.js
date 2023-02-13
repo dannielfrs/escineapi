@@ -2,7 +2,7 @@ module.exports = {
 
     isLoggedIn(req, res, next) {
         console.log("Evaluando si el usuario esta logueado")
-        console.log(req.user)
+        console.log(req.session)
         if (req.user) {
             return next();
         }

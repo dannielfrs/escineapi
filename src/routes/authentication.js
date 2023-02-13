@@ -33,8 +33,8 @@ router.post('/login', upload.none(), isNotLoggedIn, (req, res, next) => {
                 if (error) throw error;
                 res.json({ message: message, user: user, isLoggedin: true });
                 console.log("Inicio de sesion exitoso")
-                console.log(user)
                 console.log(req.user)
+                console.log(req.session)
             });
         }
     })(req, res, next);
