@@ -36,6 +36,7 @@ app.use(session({
     store: new MySQLStore(databaseConection), // Store user session on mysql database
     cookie: {
         maxAge: 1000 * 60 * 60,   // User session expires in one hour
+        secure : process.env.NODE_ENV === "production" ? true : false
     },
 }));
 app.use(cookieParser('session_cookie_secret'));
