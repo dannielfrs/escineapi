@@ -12,6 +12,7 @@ router.post('/register', upload.none(), isNotLoggedIn, (req, res, next) => {
 });
 
 router.get("/login", upload.none(), (req, res) => {
+    console.log("Ejecutando ruta get  /login")
     if (req.isAuthenticated()) {
         res.json({ message: { content: 'Sesión de usuario activa', type: "info" }, user: req.user, isLoggedin: true });
     } else {
@@ -28,6 +29,9 @@ router.post('/login', upload.none(), isNotLoggedIn, (req, res, next) => {
             req.logIn(user, (error) => {
                 if (error) throw error;
                 res.json({ message: message, user: user, isLoggedin: true });
+                console.log("Inicio de sesion exitoso")
+                console.log(user)
+                console.log(req.user)
             });
         }
     })(req, res, next);

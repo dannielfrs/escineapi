@@ -1,9 +1,12 @@
 module.exports = {
 
     isLoggedIn(req, res, next) {
+        console.log("Evaluando si el usuario esta logueado")
+        console.log(req.user)
         if (req.user) {
             return next();
         }
+        console.log("El usuario no ha iniciado sesion")
         return res.json({ message: { content: 'No has iniciado sesión', type: "info" }, user: false, isLoggedin: false });
     },
 

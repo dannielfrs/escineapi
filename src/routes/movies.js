@@ -7,6 +7,7 @@ const database = require('../database');
 const { isLoggedIn } = require('../lib/verifyIsLoggedIn');
 
 router.get('/', isLoggedIn, async (req, res) => {
+    console.log("Cargando las peliculas del usuario")
     const movies = await database.query('SELECT * FROM movies WHERE user_id = ?', [req.user.id])
     console.log(movies)
     res.json({ movies: movies, isLoggedin: true })
