@@ -20,12 +20,12 @@ app.set('port', process.env.PORT || 4000);   // If variable PORT is empty use 40
 
 // Middlewares
 
-app.set('trust proxy', 1)
+// app.set('trust proxy', 1)
 app.use(express.urlencoded({ extended: false }));   // Permite recibir datos desde formularios, no se aceptan archivos como imagenes, etc.
 app.use(express.json());     // Allow send and receive json
 app.use(
     cors({
-        origin: ["https://dannielfrs.github.io", "http://localhost:3000"], // Location of the react app from where connecting to
+        origin: ["https://dannielfrs.github.io", "http://localhost:3000", "https://escine-production.up.railway.app"], // Location of the react app from where connecting to
         credentials: true,
     })
 );
